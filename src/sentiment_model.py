@@ -21,17 +21,20 @@ def task2_models(df, feat, r_params, dtr_params):
     # Define three models
     models = [
         Ridge(**r_params),
-        DecisionTreeClassifier(**dt_params),
+        DecisionTreeRegressor(**dtr_params),
         RandomForestRegressor()
     ]
 
     # Get stopwords, which will be used in calculating tf-idf
     stopword = stopwords.words('english')
 
+    df = marge_scores(df)
+
     feature_df = get_features(feat, df)
-    X = feature_df.drop(['SentimentScore', 'Bucket_1'], axis=1)
     if feat == 'doc2vec' or feat == 'Doc2Vec':
-        X = X.drop('text', axis=1)
+        X = feature_df.drop(['text', 'Bucket_1', 'SentimentScore'], axis=1)
+    else:
+        X = feature_df['text']
     y = feature_df['SentimentScore']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
@@ -54,7 +57,7 @@ def task2_models(df, feat, r_params, dtr_params):
         print(f'Results for {model_name}: MSE {mse}')
 
         out[model_name] = pd.concat(
-        [pd.Series(pred), test_y],
+        [pd.Series(pred), y_test],
         axis=1,
         names=['Predicted_Score', 'Target_Score'])
 

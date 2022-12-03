@@ -29,10 +29,11 @@ def task1_models(df, feat, svc_params, dt_params):
     stopword = stopwords.words('english')
 
     feature_df = get_features(feat, df)
-    X = feature_df.drop(['Bucket_1', 'SentimentScore'], axis=1)
     if feat == 'doc2vec' or feat == 'Doc2Vec':
-        X = X.drop('text', axis=1)
-    y = feature_df[['Bucket_1']]
+        X = feature_df.drop(['text', 'Bucket_1', 'SentimentScore'], axis=1)
+    else:
+        X = feature_df['text']
+    y = feature_df['Bucket_1']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
     out = {} # Store model results as a dictionary
@@ -47,7 +48,7 @@ def task1_models(df, feat, svc_params, dt_params):
         pred = model.predict(X_test)
 
         # Calculate evaluation metrics
-        tn, fp, fn, tp = confusion_matrix(test_y, y_pred).ravel()
+        tn, fp, fn, tp = confusion_matrix(y_test, pred).ravel()
         accuracy = (tn + tp)/(tn + fp + fn + tp)
         precision = tp / (tp + fp)
         recall = tp / (tp + fn)
@@ -57,6 +58,6 @@ def task1_models(df, feat, svc_params, dt_params):
         print(f'Results for {model_name}: accuracy {accuracy}, precision {precision}, \
         recall {recall}, f1 score {f1}')
 
-        out[model_name] = pd.concat([pd.Series(pred), test_y], axis=1)
+        out[model_name] = pd.concat([pd.Series(pred), y_test], axis=1)
 
     return out
