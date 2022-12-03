@@ -1,0 +1,4 @@
+{
+  "ridge": {"alpha":1.0, "solver":"sag"},
+  "dt": {"criterion": "squared_error", "max_depth": 20, "min_samples_leaf":5}
+}

@@ -11,7 +11,7 @@ from nltk.corpus import stopwords
 import pandas as pd
 from features import *
 
-def task1_models(df, feat, **nb_params, **svc_params, **dt_params):
+def task1_models(df, feat, **svc_params, **dt_params):
     """This function runs Bernoulli Naive Bayes, SVM Classifier, and
     Decision Tree Classifier on the engineered features. Print results
     when each model finishes running. """
@@ -20,7 +20,7 @@ def task1_models(df, feat, **nb_params, **svc_params, **dt_params):
 
     # Define three models
     models = [
-        BernoulliNB(**nb_params),
+        BernoulliNB(),
         svm.svc(**svc_params),
         DecisionTreeClassifier(**dt_params)
     ]

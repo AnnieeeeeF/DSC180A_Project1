@@ -11,7 +11,7 @@ from sklearn.metrics import mean_squared_error
 import pandas as pd
 from features import *
 
-def task2_models(df, feat, **r_params, **rf_params, **dtr_params):
+def task2_models(df, feat, **r_params, **dtr_params):
     """This function runs Ridge, Decision Tree Regressor, and
     Random Forest Regressor on the engineered features. Print results
     when each model finishes running. """
@@ -21,8 +21,8 @@ def task2_models(df, feat, **r_params, **rf_params, **dtr_params):
     # Define three models
     models = [
         Ridge(**r_params),
-        svm.svc(**svc_params),
-        DecisionTreeClassifier(**dt_params)
+        DecisionTreeClassifier(**dt_params),
+        RandomForestRegressor()
     ]
 
     # Get stopwords, which will be used in calculating tf-idf
