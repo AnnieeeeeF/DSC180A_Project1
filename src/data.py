@@ -19,6 +19,8 @@ def clean_data(df_raw):
 
     # filter out rows with abonormal sentiment score
     df = df[(df['SentimentScore'] <= 5) | (df['SentimentScore'].isnull())]
+    # Bucket label indicating whether a Tweet is in Bucket 1 or  not
+    df['Bucket_1'] = (df['Bucket'] == '1')
 
     return df
 

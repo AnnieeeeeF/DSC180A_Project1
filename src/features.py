@@ -24,9 +24,9 @@ def doc2vec(df):
     """
     This function transforms the text column into vectors if length 30
     using Doc2Vec. Return a dataframe contains the resulting vectors and
-    the sentiment scores.
+    the relevance labels.
     """
-    dff = df[['text', 'SentimentScore']]
+    dff = df[['text', 'Bucket_1']]
     text_tokenized = dff['text'].apply(word_tokenize) #tokenize each tweet
     tagged_text = [TaggedDocument(d,[i]) for i, d in enumerate(text_tokenized)] #tag sentence corpus
     d2v_model = Doc2Vec(tagged_text, vector_size=30, window=2, min_count=1, epochs=100) #train Doc2Vec model
@@ -35,7 +35,6 @@ def doc2vec(df):
     # seperate vectors to columns
     dff['text_vector'] = dff['text_vector'].apply(lambda x: list(x))
     dff[list(range(1,31))] = pd.DataFrame(dff['text_vector'].tolist(), index= dff.index)
-    dff = dff.drop('text', axis=1)
 
     return dff
 
@@ -43,10 +42,20 @@ def transform_text(df):
     """
     This function transforms text to lowercase and remove punctuations
     to prepare the text for TF-IDF. Return a dataframe with the transformed
-    texts and the sentiment scores.
+    texts and the relevance labels.
     """
-    texts = df[['text', 'SentimentScore']]
+    texts = df[['text', 'Bucket_1']]
     texts['text'] = texts['text'].str.lower()
     texts["text"] = texts['text'].str.replace('[^\w\s]','')
 
     return texts
+
+def get_features(feat, df):
+    """
+    This function prepares features for the classification tasks.
+    Return a dataframe with the generated features and the labels.
+    """
+    if feat == 'doc2vec' or feat == 'Doc2Vec':
+        return doc2vec(df)
+    elif feat == 'tf-idf' or feat == 'TF-IDF':
+        return transform_text(df)

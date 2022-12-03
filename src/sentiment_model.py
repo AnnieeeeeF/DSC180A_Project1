@@ -11,12 +11,12 @@ from nltk.corpus import stopwords
 import pandas as pd
 from features import *
 
-def task1_models(df, feat, **nb_params, **svc_params, **dt_params):
-    """This function runs Bernoulli Naive Bayes, SVM Classifier, and
-    Decision Tree Classifier on the engineered features. Print results
+def task2_models(df, feat, **r_params, **rf_params, **dtr_params):
+    """This function runs Ridge, Decision Tree Regressor, and
+    Random Forest Regressor on the engineered features. Print results
     when each model finishes running. """
 
-    print('Training classification models for relevance...')
+    print('Training Regression models for sentiment scores...')
 
     # Define three models
     models = [
