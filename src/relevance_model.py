@@ -1,6 +1,5 @@
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
-from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn import utils, svm
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
