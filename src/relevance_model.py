@@ -29,7 +29,9 @@ def task1_models(df, feat, **nb_params, **svc_params, **dt_params):
     stopword = stopwords.words('english')
 
     feature_df = get_features(feat, df)
-    X = feature_df.drop(['text', 'Bucket_1'])
+    X = feature_df.drop(['Bucket_1', 'SentimentScore]')
+    if feat == 'doc2vec' or feat == 'Doc2Vec':
+        X = X.drop('text', axis=1)
     y = feature_df['Bucket_1']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 

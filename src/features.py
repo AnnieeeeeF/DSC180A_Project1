@@ -23,10 +23,10 @@ def marge_scores(df):
 def doc2vec(df):
     """
     This function transforms the text column into vectors if length 30
-    using Doc2Vec. Return a dataframe contains the resulting vectors and
-    the relevance labels.
+    using Doc2Vec. Return a dataframe contains the resulting vectors,
+    the relevance labels, and the sentiment scores.
     """
-    dff = df[['text', 'Bucket_1']]
+    dff = df[['text', 'Bucket_1', 'SentimentScore']]
     text_tokenized = dff['text'].apply(word_tokenize) #tokenize each tweet
     tagged_text = [TaggedDocument(d,[i]) for i, d in enumerate(text_tokenized)] #tag sentence corpus
     d2v_model = Doc2Vec(tagged_text, vector_size=30, window=2, min_count=1, epochs=100) #train Doc2Vec model
@@ -42,9 +42,9 @@ def transform_text(df):
     """
     This function transforms text to lowercase and remove punctuations
     to prepare the text for TF-IDF. Return a dataframe with the transformed
-    texts and the relevance labels.
+    texts, the relevance labels, and the sentiment scores.
     """
-    texts = df[['text', 'Bucket_1']]
+    texts = df[['text', 'Bucket_1', 'SentimentScore']]
     texts['text'] = texts['text'].str.lower()
     texts["text"] = texts['text'].str.replace('[^\w\s]','')
 
