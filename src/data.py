@@ -7,7 +7,7 @@ def clean_data(df_raw):
     and organizes formats of the columns.
     """
 
-    df = df.drop_duplicates()
+    df = df_raw.drop_duplicates()
 
     # remove {} from columns
     df['term_partisanship'] = df['term_partisanship'].str.strip('{}')

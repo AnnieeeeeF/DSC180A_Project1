@@ -9,9 +9,9 @@ from sklearn.metrics import confusion_matrix
 
 from nltk.corpus import stopwords
 import pandas as pd
-from features import *
+from src.features import *
 
-def task1_models(df, feat, **svc_params, **dt_params):
+def task1_models(df, feat, svc_params, dt_params):
     """This function runs Bernoulli Naive Bayes, SVM Classifier, and
     Decision Tree Classifier on the engineered features. Print results
     when each model finishes running. """
@@ -21,7 +21,7 @@ def task1_models(df, feat, **svc_params, **dt_params):
     # Define three models
     models = [
         BernoulliNB(),
-        svm.svc(**svc_params),
+        svm.SVC(**svc_params),
         DecisionTreeClassifier(**dt_params)
     ]
 
@@ -29,10 +29,10 @@ def task1_models(df, feat, **svc_params, **dt_params):
     stopword = stopwords.words('english')
 
     feature_df = get_features(feat, df)
-    X = feature_df.drop(['Bucket_1', 'SentimentScore]')
+    X = feature_df.drop(['Bucket_1', 'SentimentScore'], axis=1)
     if feat == 'doc2vec' or feat == 'Doc2Vec':
         X = X.drop('text', axis=1)
-    y = feature_df['Bucket_1']
+    y = feature_df[['Bucket_1']]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
     out = {} # Store model results as a dictionary
@@ -43,7 +43,6 @@ def task1_models(df, feat, **svc_params, **dt_params):
             model = Pipeline([
                 ('tfidf', TfidfVectorizer(stop_words = stopword)),
                 ('model', model)])
-
         model.fit(X_train, y_train)
         pred = model.predict(X_test)
 
