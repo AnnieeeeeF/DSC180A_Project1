@@ -7,7 +7,9 @@ from src.sentiment_model import task2_models
 from src.data import load_csv
 
 def main(targets):
-    fp = os.path.join(targets[0], 'data.csv')
+    if test in targets:
+        fp = os.path.join('data/test', 'data.csv')
+
     df_raw = pd.read_csv(fp)
     try:
         df = load_csv(df_raw)
