@@ -6,7 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import Ridge
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 
 import pandas as pd
 from src.features import *
@@ -52,9 +52,10 @@ def task2_models(df, feat, r_params, dtr_params):
 
         # Calculate MSE
         mse = mean_squared_error(y_test, pred)
+        r2 = r2_score(y_test, pred)
 
         # Print evaluation metrics
-        print(f'Results for {model_name}: MSE {mse}')
+        print(f'Results for {model_name}: MSE {mse}.3f, R2 score {r2}')
 
         out[model_name] = pd.concat(
         [pd.Series(pred), y_test],

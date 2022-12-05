@@ -55,8 +55,7 @@ def task1_models(df, feat, svc_params, dt_params):
         f1 = 2 * precision * recall / (precision + recall)
 
         # Print evaluation metrics
-        print(f'Results for {model_name}: accuracy {accuracy}, precision {precision}, \
-        recall {recall}, f1 score {f1}')
+        print(f'Results for {model_name}: accuracy {accuracy}, precision {precision}, recall {recall}, f1 score {f1}')
 
         out[model_name] = pd.concat([pd.Series(pred), y_test], axis=1)
 
