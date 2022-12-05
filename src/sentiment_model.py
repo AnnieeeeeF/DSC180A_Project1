@@ -55,7 +55,7 @@ def task2_models(df, feat, r_params, dtr_params):
         r2 = r2_score(y_test, pred)
 
         # Print evaluation metrics
-        print(f'Results for {model_name}: MSE {mse}.3f, R2 score {r2}')
+        print(f'Results for {model_name}: MSE {mse}, R2 score {r2}')
 
         out[model_name] = pd.concat(
         [pd.Series(pred), y_test],
