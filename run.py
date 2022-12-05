@@ -10,6 +10,8 @@ from src.data import load_csv
 def main(targets):
     if 'test' in targets:
         fp = os.path.join('data/test', 'data.csv')
+    elif 'raw' in targets:
+        fp = os.path.join('data/raw', 'SentimentLabeled_10112022.csv')
 
         try:
             df = load_csv(fp)
