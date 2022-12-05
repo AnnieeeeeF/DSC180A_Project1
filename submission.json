@@ -1,0 +1,4 @@
+{
+    "dockerhub-id": "anniefan/dsc180a_project1",
+    "build-script": "python run.py"
+}
