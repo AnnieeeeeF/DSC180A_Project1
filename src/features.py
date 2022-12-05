@@ -35,6 +35,7 @@ def doc2vec(df):
     # seperate vectors to columns
     dff['text_vector'] = dff['text_vector'].apply(lambda x: list(x))
     dff[list(range(1,31))] = pd.DataFrame(dff['text_vector'].tolist(), index= dff.index)
+    dff = dff.drop('text_vector', axis=1)
 
     return dff
 
