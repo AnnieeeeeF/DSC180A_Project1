@@ -2,7 +2,8 @@
 
 ## Folder
 * config: contains parameters of the models
-  -   
+  -   task1-param.json
+  -   task2-param.json
 * data
 * notebook
 * src
